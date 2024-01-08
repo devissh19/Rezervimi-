@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="style.css">
+    <title>Rezervimi i apartamentit</title>
+</head>
+<body>
+
+<h1>Rezervimi i apartamentit</h1>
+
+<form method="post" action="rezervimi.php">
+    <label for="emri">Emri:</label>
+    <input type="text" id="emri" name="emri" required><br><br>
+
+    <label for="mbiemri">Mbiemri:</label>
+    <input type="text" id="mbiemri" name="mbiemri" required><br><br>
+
+    <label for="telefoni">Numri i telefonit:</label>
+    <select id="shtet" name="shtet" required>
+        <option value="+355">Shqipëri (+355)</option>
+        <option value="+1">SHBA (+1)</option>
+        <!-- Shtoni opsionet për prefikset e shteteve të tjera këtu -->
+    </select>
+    <input type="tel" id="telefoni" name="telefoni" required><br><br>
+
+    <label for="data_mberritjes">Data e mbërritjes:</label>
+    <input type="date" id="data_mberritjes" name="data_mberritjes" onchange="calculatePrice()" required><br><br>
+
+  
+
+    <label for="cmimi">Çmimi:</label>
+    <input type="text" id="cmimi" name="cmimi" readonly><br><br>
+    <div class="wrapper">
+    <input type="submit" name="submit" value="Rezervo">
+</form>
+
+<script>
+    function calculatePrice() {
+        const dataMberritjes = document.getElementById('data_mberritjes').value;
+        const data = new Date(dataMberritjes);
+
+        let cmimi = 0;
+
+        // Identifikoni sezonin bazuar në muajin e zgjedhur
+        const muaji = data.getMonth() + 1; // Merret muaji nga 1 deri në 12
+
+        // Caktimi i çmimit në bazë të sezoni (dimër/verë)
+        if (muaji >= 6 && muaji <= 8) {
+            cmimi = 100; // Verë
+        } else {
+            cmimi = 50; // Dimër
+        }
+
+        document.getElementById('cmimi').value = cmimi + ' EUR';
+    }
+</script>
+
+</body>
+<footer>
+    <p>&copy; All rights reserved.Managed by Devis Sherifaj 2024</p>
+  </footer>
+</html>
+
